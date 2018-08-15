@@ -15,7 +15,7 @@ Add the following repository source to your composer.json:
 Require via composer:
 
 ```
-composer require usabilitydynamics/zoom-api-php-client:1.0.0
+composer require usabilitydynamics/zoom-api-php-client:0.0.3
 ```
 
 Initialize:

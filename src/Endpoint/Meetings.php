@@ -14,10 +14,11 @@ class Meetings extends Request {
      * List
      *
      * @param $userId
+     * @param array $query
      * @return array|mixed
      */
-    public function list(string $userId) {
-        return $this->get("users/{$userId}/meetings");
+    public function list(string $userId, array $query = []) {
+        return $this->get("users/{$userId}/meetings", $query);
     }
 
     /**
@@ -39,6 +40,27 @@ class Meetings extends Request {
      */
     public function meeting(string $meetingId) {
         return $this->get("meetings/{$meetingId}");
+    }
+
+    /**
+     * Remove
+     *
+     * @param $meetingId
+     * @return array|mixed
+     */
+    public function remove(string $meetingId) {
+        return $this->delete("meetings/{$meetingId}");
+    }
+
+    /**
+     * Update
+     *
+     * @param $meetingId
+     * @param array $data
+     * @return array|mixed
+     */
+    public function update(string $meetingId, array $data = []) {
+        return $this->patch("meetings/{$meetingId}", $data);
     }
 
     /**

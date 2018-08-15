@@ -64,6 +64,17 @@ class Meetings extends Request {
     }
 
     /**
+     * Status
+     *
+     * @param $meetingId
+     * @param array $data
+     * @return mixed
+     */
+    public function status(string $meetingId, array $data = []) {
+        return $this->put("meetings/{$meetingId}/status", $data);
+    }
+
+    /**
      * Records
      *
      * @param $meetingId

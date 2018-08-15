@@ -47,8 +47,7 @@ class Request {
      *
      * @return array
      */
-    protected function headers(): array
-    {
+    protected function headers(): array {
         return [
             'Authorization' => 'Bearer ' . $this->generateJWT(),
             'Content-Type' => 'application/json',
@@ -78,8 +77,7 @@ class Request {
      * @param array $fields
      * @return array|mixed
      */
-    protected function get($method, $fields = [])
-    {
+    protected function get($method, $fields = []) {
         try {
             $response = $this->client->request('GET', $this->apiPoint . $method, [
                 'query' => $fields,
@@ -101,8 +99,7 @@ class Request {
      * @param $fields
      * @return array|mixed
      */
-    protected function post($method, $fields)
-    {
+    protected function post($method, $fields) {
         $body = \json_encode($fields, JSON_PRETTY_PRINT);
 
         try {
@@ -124,8 +121,7 @@ class Request {
      * @param $fields
      * @return array|mixed
      */
-    protected function patch($method, $fields)
-    {
+    protected function patch($method, $fields) {
         $body = \json_encode($fields, JSON_PRETTY_PRINT);
 
         try {
@@ -140,8 +136,35 @@ class Request {
         }
     }
 
-    protected function delete($method)
-    {
+    /**
+     * Put
+     *
+     * @param $method
+     * @param $fields
+     * @return array|mixed
+     */
+    protected function put($method, $fields) {
+        $body = \json_encode($fields, JSON_PRETTY_PRINT);
+
+        try {
+            $response = $this->client->request('PUT', $this->apiPoint . $method,
+                ['body' => $body, 'headers' => $this->headers()]);
+
+            return $this->result($response);
+
+        } catch (ClientException $e) {
+
+            return (array)json_decode($e->getResponse()->getBody()->getContents());
+        }
+    }
+
+    /**
+     * Delete
+     *
+     * @param $method
+     * @return array|mixed
+     */
+    protected function delete($method) {
         try {
             $response = $this->client->request('DELETE', $this->apiPoint . $method,
                 [ 'headers' => $this->headers()]);
@@ -160,8 +183,7 @@ class Request {
      * @param Response $response
      * @return mixed
      */
-    protected function result(Response $response)
-    {
+    protected function result(Response $response) {
         $result = json_decode((string)$response->getBody(), true);
 
         $result['code'] = $response->getStatusCode();

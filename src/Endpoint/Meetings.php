@@ -75,13 +75,57 @@ class Meetings extends Request {
     }
 
     /**
-     * Records
+     * List Registrants
      *
      * @param $meetingId
+     * @param array $query
      * @return array|mixed
      */
-    public function records(string $meetingId) {
-        return $this->get("meetings/{$meetingId}/recordings");
+    public function listRegistrants(string $meetingId, array $query = []) {
+        return $this->get("meetings/{$meetingId}/registrants", $query);
+    }
+
+    /**
+     * Add Registrant
+     *
+     * @param $meetingId
+     * @param array $data
+     * @return array|mixed
+     */
+    public function addRegistrant(string $meetingId, array $data = []) {
+        return $this->post("meetings/{$meetingId}/registrants", $data);
+    }
+
+    /**
+     * Update Registrant Status
+     *
+     * @param $meetingId
+     * @param array $data
+     * @return array|mixed
+     */
+    public function updateRegistrantStatus(string $meetingId, array $data = []) {
+        return $this->put("meetings/{$meetingId}/registrants/status", $data);
+    }
+
+    /**
+     * Past Meeting
+     *
+     * @param $meetingUUID
+     * @return array|mixed
+     */
+    public function pastMeeting(string $meetingUUID) {
+        return $this->get("past_meetings/{$meetingUUID}");
+    }
+
+    /**
+     * Past Meeting Participants
+     *
+     * @param $meetingUUID
+     * @param array $query
+     * @return array|mixed
+     */
+    public function pastMeetingParticipants(string $meetingUUID, array $query = []) {
+        return $this->get("past_meetings/{$meetingUUID}/participants", $query);
     }
 
 }

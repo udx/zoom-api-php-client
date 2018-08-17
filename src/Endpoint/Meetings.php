@@ -4,8 +4,17 @@ namespace UDX\Zoom\Endpoint;
 
 use UDX\Zoom\Http\Request;
 
+/**
+ * Class Meetings
+ * @package UDX\Zoom\Endpoint
+ */
 class Meetings extends Request {
 
+    /**
+     * Meetings constructor.
+     * @param $apiKey
+     * @param $apiSecret
+     */
     public function __construct($apiKey, $apiSecret) {
         parent::__construct($apiKey, $apiSecret);
     }

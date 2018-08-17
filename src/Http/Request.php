@@ -162,12 +162,15 @@ class Request {
      * Delete
      *
      * @param $method
+     * @param $fields
      * @return array|mixed
      */
-    protected function delete($method) {
+    protected function delete($method, $fields) {
+        $body = \json_encode($fields, JSON_PRETTY_PRINT);
+
         try {
             $response = $this->client->request('DELETE', $this->apiPoint . $method,
-                [ 'headers' => $this->headers()]);
+                ['body' => $body, 'headers' => $this->headers()]);
 
             return $this->result($response);
 

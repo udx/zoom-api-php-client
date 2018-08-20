@@ -165,7 +165,7 @@ class Request {
      * @param $fields
      * @return array|mixed
      */
-    protected function delete($method, $fields) {
+    protected function delete($method, $fields = []) {
         $body = \json_encode($fields, JSON_PRETTY_PRINT);
 
         try {

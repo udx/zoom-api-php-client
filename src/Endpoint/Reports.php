@@ -5,7 +5,7 @@ namespace UDX\Zoom\Endpoint;
 use UDX\Zoom\Http\Request;
 
 /**
- * Class Meetings
+ * Class Reports
  * @package UDX\Zoom\Endpoint
  */
 class Reports extends Request {

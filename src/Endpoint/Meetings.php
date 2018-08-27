@@ -101,7 +101,7 @@ class Meetings extends Request {
      * @param array $data
      * @return array|mixed
      */
-    public function addRegistrant(string $meetingId, array $data = []) {
+    public function addRegistrant(string $meetingId, $data = []) {
         return $this->post("meetings/{$meetingId}/registrants", $data);
     }
 

@@ -66,7 +66,7 @@ class Request {
             'exp' => time() + 60,
         ];
 
-        return JWT::encode($token, $this->apiSecret);
+        return JWT::encode($token, $this->apiSecret, 'HS256');
     }
 
 

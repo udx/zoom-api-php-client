@@ -3,11 +3,14 @@
     "description": "Zoom.us API v2 client for PHP",
     "type": "library",
     "license": "GPL-2.0",
-
     "authors": [
         {
             "name": "Anton Korotkov",
             "email": "anton@udx.io"
+        },
+        {
+            "name": "Vladimir Palant",
+            "email": "vladimir@udx.io"
         }
     ],
 

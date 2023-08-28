@@ -14,7 +14,7 @@ class Bootstrap extends TestCase {
      */
     public function testClientCreate() {
         try {
-            $client = new Zoom\Zoom('key', 'secret');
+            $client = new Zoom\Zoom('id', 'key', 'secret');
             $this->assertInstanceOf(Zoom\Zoom::class, $client);
         } catch ( Exception $e ) {
             $this->fail( $e );
@@ -27,7 +27,7 @@ class Bootstrap extends TestCase {
      */
     public function testMeetingsEndpoint() {
         try {
-            $client = new Zoom\Zoom( 'key', 'secret' );
+            $client = new Zoom\Zoom( 'id', 'key', 'secret' );
             $this->assertInstanceOf(Zoom\Endpoint\Meetings::class, $client->meetings);
             $this->assertInstanceOf(Zoom\Http\Request::class, $client->meetings);
             $this->assertTrue( method_exists( $client->meetings, 'list' ),

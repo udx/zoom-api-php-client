@@ -12,11 +12,12 @@ class Recordings extends Request {
 
     /**
      * Recordings constructor.
-     * @param $apiKey
-     * @param $apiSecret
+     * @param $accountId
+     * @param $clientId
+     * @param $clientSecret
      */
-    public function __construct($apiKey, $apiSecret) {
-        parent::__construct($apiKey, $apiSecret);
+    public function __construct( $accountId, $clientId, $clientSecret ) {
+        parent::__construct( $accountId, $clientId, $clientSecret );
     }
 
     /**

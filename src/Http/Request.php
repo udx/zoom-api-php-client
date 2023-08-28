@@ -2,7 +2,6 @@
 
 namespace UDX\Zoom\Http;
 
-use Firebase\JWT\JWT;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Response;
@@ -12,12 +11,17 @@ class Request {
     /**
      * @var
      */
-    protected $apiKey;
+    protected $accountId;
 
     /**
      * @var
      */
-    protected $apiSecret;
+    protected $clientId;
+
+    /**
+     * @var
+     */
+    protected $clientSecret;
 
     /**
      * @var Client
@@ -30,14 +34,23 @@ class Request {
     public $apiPoint = 'https://api.zoom.us/v2/';
 
     /**
-     * Request constructor.
-     * @param $apiKey
-     * @param $apiSecret
+     * @var string
      */
-    public function __construct( $apiKey, $apiSecret ) {
-        $this->apiKey = $apiKey;
+    public $oauthPoint = 'https://zoom.us/oauth/token?grant_type=account_credentials&account_id=';
+    
 
-        $this->apiSecret = $apiSecret;
+    /**
+     * Request constructor.
+     * @param $accountId
+     * @param $clientId
+     * @param $clientSecret
+     */
+    public function __construct( $accountId, $clientId, $clientSecret ) {
+        $this->accountId = $accountId;
+
+        $this->clientId = $clientId;
+
+        $this->clientSecret = $clientSecret;
 
         $this->client = new Client();
     }
@@ -49,24 +62,28 @@ class Request {
      */
     protected function headers(): array {
         return [
-            'Authorization' => 'Bearer ' . $this->generateJWT(),
+            'Authorization' => 'Bearer ' . $this->generateOAuthToken(),
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ];
     }
 
     /**
-     * Generate J W T
+     * Generate OAuth token
      *
      * @return string
      */
-    protected function generateJWT() {
-        $token = [
-            'iss' => $this->apiKey,
-            'exp' => time() + 60,
-        ];
+    protected function generateOAuthToken() {
+        try {
+            $response = $this->client->request('POST', $this->oauthPoint . $this->accountId, [
+                'auth' => [ $this->clientId, $this->clientSecret ]
+            ]);
+            $result = $this->result($response);
+            return isset($result['access_token']) ? $result['access_token'] : '';
 
-        return JWT::encode($token, $this->apiSecret, 'HS256');
+        } catch (ClientException $e) {
+            return (array)json_decode($e->getResponse()->getBody()->getContents());
+        }
     }
 
 

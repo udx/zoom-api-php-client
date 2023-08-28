@@ -8,23 +8,30 @@ class Zoom {
     /**
      * @var null
      */
-    private $apiKey = null;
+    private $accountId = null;
 
     /**
      * @var null
      */
-    private $apiSecret = null;
+    private $clientId = null;
+
+    /**
+     * @var null
+     */
+    private $clientSecret = null;
 
     /**
      * Zoom constructor.
      * @param $apiKey
      * @param $apiSecret
      */
-    public function __construct( $apiKey, $apiSecret ) {
+    public function __construct( $accountId, $clientId, $clientSecret ) {
 
-        $this->apiKey = $apiKey;
+        $this->accountId = $accountId;
 
-        $this->apiSecret = $apiSecret;
+        $this->clientId = $clientId;
+
+        $this->clientSecret = $clientSecret;
     }
 
     /**
@@ -58,7 +65,7 @@ class Zoom {
 
         $class = 'UDX\\Zoom\\Endpoint\\' . ucfirst(strtolower($resource));
         if (class_exists($class)) {
-            return new $class( $this->apiKey, $this->apiSecret );
+            return new $class( $this->accountId, $this->clientId, $this->clientSecret );
         }
         throw new Exception('Wrong method');
     }

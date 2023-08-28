@@ -15,14 +15,14 @@ Add the following repository source to your composer.json:
 Require via composer:
 
 ```
-composer require usabilitydynamics/zoom-api-php-client:0.0.3
+composer require usabilitydynamics/zoom-api-php-client:0.0.12
 ```
 
 Initialize:
 
 ```
 use UDX\Zoom\Zoom;
-$zoom = new Zoom( <api_key>, <secret_key> );
+$zoom = new Zoom( <account_id>, <client_id>, <client_secret> );
 ```
 
 Use:
